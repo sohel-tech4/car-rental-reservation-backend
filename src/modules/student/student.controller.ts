@@ -3,7 +3,7 @@ import { StudentServices } from './student.service';
 
 const getAllStudent = async (req: Request, res: Response) => {
   try {
-    const result = await StudentServices.getAllStudentfromDB();
+    const result = await StudentServices.getAllStudentsFromDB;
     res.status(200).json({
       success: true,
       message: 'Student is created successfully',
