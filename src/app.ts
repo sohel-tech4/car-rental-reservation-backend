@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import { UserRoutes } from './modules/user/user.route';
 import { StudentRoutes } from './modules/student/student.route';
+import globalErrorHandller from './modules/middleware/globalErrorhandller';
 const app: Application = express();
 
 // parser
@@ -16,6 +17,8 @@ const getAController = (req: Request, res: Response) => {
   const a = 10;
   res.send(a);
 };
+
+app.use(globalErrorHandller);
 
 app.get('/', getAController);
 
