@@ -21,7 +21,6 @@ const CreateStudent = async (password: string, StudentData: TStudent) => {
   if (Object.keys(newUser).length) {
     StudentData.id = newUser.id;
     StudentData.user = newUser._id;
-
     const newStudent = await Student.create(StudentData);
     return newStudent;
   }
