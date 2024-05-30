@@ -1,32 +1,24 @@
-import { Request, Response } from 'express';
+import CatchAsync from '../../utils/catchAsync';
 import { StudentServices } from './student.service';
 
-const getAllStudent = async (req: Request, res: Response) => {
-  try {
-    const result = await StudentServices.getAllStudentfromDB;
-    res.status(200).json({
-      success: true,
-      message: 'Student is created successfully',
-      data: result,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+const getAllStudent = CatchAsync(async (req, res) => {
+  const result = await StudentServices.getAllStudentfromDB;
+  res.status(200).json({
+    success: true,
+    message: 'Student is created successfully',
+    data: result,
+  });
+});
 
-const getSingleStudent = async (req: Request, res: Response) => {
-  try {
-    const { studentId } = req.params;
-    const result = await StudentServices.getSingleStudentFromDB(studentId);
-    res.status(200).json({
-      success: true,
-      message: 'Student is retrievd successfully',
-      data: result,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+const getSingleStudent = CatchAsync(async (req, res) => {
+  const { studentId } = req.params;
+  const result = await StudentServices.getSingleStudentFromDB(studentId);
+  res.status(200).json({
+    success: true,
+    message: 'Student is retrievd successfully',
+    data: result,
+  });
+});
 
 export const studentController = {
   getAllStudent,

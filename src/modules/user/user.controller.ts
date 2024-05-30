@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
 import { UserService } from './user.services';
+import CatchAsync from '../../utils/catchAsync';
 
-const CreateStudent = async (req: Request, res: Response) => {
+const CreateStudent = CatchAsync(async (req, res) => {
   try {
     const { password, student: StudentData } = req.body;
     const result = UserService.CreateStudent(password, StudentData);
@@ -17,7 +17,7 @@ const CreateStudent = async (req: Request, res: Response) => {
       data: error,
     });
   }
-};
+});
 
 export const UserController = {
   CreateStudent,

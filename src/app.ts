@@ -2,7 +2,8 @@ import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import { UserRoutes } from './modules/user/user.route';
 import { StudentRoutes } from './modules/student/student.route';
-import globalErrorHandller from './modules/middleware/globalErrorhandller';
+// import globalErrorHandller from './modules/middleware/globalErrorhandller';
+import notFound from './modules/middleware/notFound';
 const app: Application = express();
 
 // parser
@@ -18,8 +19,9 @@ const getAController = (req: Request, res: Response) => {
   res.send(a);
 };
 
-app.use(globalErrorHandller);
+// app.use(globalErrorHandller);
 
+app.use(notFound);
 app.get('/', getAController);
 
 export default app;
