@@ -1,10 +1,11 @@
 import express from 'express';
-import { CreateAcademicSemesterController } from './AcademicSemester.Controller';
 import ValidateRequest from '../middleware/ValidateRequest';
 import { AcademicSemesterValidations } from './AcademicSemester.validation.z';
+import { CreateAcademicSemesterController } from './AcademicSemester.controller';
 
 const router = express.Router();
 
 router.post('/Create-Academic-Semester', ValidateRequest(AcademicSemesterValidations.AcademicSemesterValidationsSchema), CreateAcademicSemesterController.CreateAcademicSemester)
+router.get('/Get-Academic-Semester/:id', CreateAcademicSemesterController.getAcademicSemesterData)
 
 export const AcademicSemesterRoutes = router;
