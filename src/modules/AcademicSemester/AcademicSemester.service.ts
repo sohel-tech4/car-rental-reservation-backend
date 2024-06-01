@@ -1,24 +1,27 @@
-import CatchAsync from "../../utils/catchAsync";
-import { AcademicSemesterNameCodeMapper } from "./AcademicSemester.constant";
-import { TAcademicSemester } from "./AcademicSemester.interface";
-import { AcademicSemester } from "./AcademicSemester.model";
+import { AcademicSemesterNameCodeMapper } from './AcademicSemester.constant';
+import { TAcademicSemester } from './AcademicSemester.interface';
+import { AcademicSemester } from './AcademicSemester.model';
 
-const createAcademicSemesterIntoDB = async(payload: TAcademicSemester)=>{
+const createAcademicSemesterIntoDB = async (payload: TAcademicSemester) => {
+  if (AcademicSemesterNameCodeMapper[payload.name] !== payload.code) {
+    throw new Error('Invalid Code');
+  }
+  const result = await AcademicSemester.create(payload);
+  return result;
+};
 
-    if(AcademicSemesterNameCodeMapper[payload.name]!==payload.code){
-        throw new Error('Invalid Code')
-    }
+const getAcademicSemesterData = async () => {
+  const result = await AcademicSemester.find();
+  return result;
+};
 
-    const result = await AcademicSemester.create(payload)  
-    return result
-}
-
-const getAcademicSemesterData = async()=>{
-    const result = await AcademicSemester.find()
-    return result
-}
+const getAcademicSemesterSingleData = async (id: string) => {
+  const result = await AcademicSemester.findOne({ id });
+  return result;
+};
 
 export const AcademicSemesterService = {
-    createAcademicSemesterIntoDB,
-    getAcademicSemesterData
-}
+  createAcademicSemesterIntoDB,
+  getAcademicSemesterData,
+  getAcademicSemesterSingleData,
+};
