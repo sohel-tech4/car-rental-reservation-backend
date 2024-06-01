@@ -23,4 +23,9 @@ router.get(
   CreateAcademicSemesterController.getAcademicSemesterSingleData,
 );
 
+router.patch(
+  '/update-Academic-Semester/:id',
+  CreateAcademicSemesterController.UpdateAcademicSemesterSingleData,
+);
+
 export const AcademicSemesterRoutes = router;

@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import CatchAsync from '../../utils/catchAsync';
 import { AcademicSemesterService } from './AcademicSemester.service';
+import httpStatus from 'http-status';
 
 const CreateAcademicSemester = CatchAsync(
   async (req: Request, res: Response) => {
@@ -51,8 +52,23 @@ const getAcademicSemesterSingleData = async (
   }
 };
 
+const UpdateAcademicSemesterSingleData = CatchAsync(async (req, res) => {
+  const { semesterId } = req.params;
+  const result = await AcademicSemesterService.updateAcademicSemesterSingleData(
+    semesterId,
+    req.body,
+  );
+  res.status(200).json({
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Academic semester is retrieved succesfully',
+    data: result,
+  });
+});
+
 export const CreateAcademicSemesterController = {
   CreateAcademicSemester,
   getAcademicSemesterData,
   getAcademicSemesterSingleData,
+  UpdateAcademicSemesterSingleData,
 };

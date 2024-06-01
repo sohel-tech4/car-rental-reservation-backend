@@ -17,8 +17,7 @@ app.use('/api/v1/users', UserRoutes);
 app.use('/api/v1/academic-semester', AcademicSemesterRoutes);
 
 const getAController = (req: Request, res: Response) => {
-  const a = 10;
-  res.send(a);
+  res.send('Hello PH University');
 };
 
 // app.use(globalErrorHandller);
