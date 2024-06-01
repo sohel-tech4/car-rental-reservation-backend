@@ -1,4 +1,3 @@
-import { Date } from "mongoose"
 
 export type TMonths =
   | "January"
@@ -19,8 +18,8 @@ export type TAcademicSemesterCode = "01" | "02" | "03"
 
 export type TAcademicSemester = {
     name: TAcademicSemesterName,
-    code : TAcademicSemesterName,
-    year: Date,
+    code : TAcademicSemesterCode,
+    year: String,
     startMonth: TMonths,
     endMonth: TMonths
 }

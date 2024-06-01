@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { UserService } from './user.services';
+import CatchAsync from '../../utils/catchAsync';
 
-const CreateStudent = async (req: Request, res: Response) => {
-  try {
+const CreateStudent = CatchAsync(async (req: Request, res: Response) => {
     const { password, student: StudentData } = req.body;
     const result = await UserService.CreateStudent(password, StudentData);
     res.status(200).json({
@@ -10,14 +10,8 @@ const CreateStudent = async (req: Request, res: Response) => {
       message: 'Student is created successfully',
       data: result,
     });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: 'Student is not created successfully',
-      data: error,
-    });
-  }
-};
+  } 
+)
 
 export const UserController = {
   CreateStudent,
