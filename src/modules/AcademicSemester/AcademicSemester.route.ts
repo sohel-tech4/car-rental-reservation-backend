@@ -24,7 +24,10 @@ router.get(
 );
 
 router.patch(
-  '/update-Academic-Semester/:id',
+  '/Create-Academic-Semester/:id',
+  ValidateRequest(
+    AcademicSemesterValidations.updateAcademicSemesterValidationsSchema,
+  ),
   CreateAcademicSemesterController.UpdateAcademicSemesterSingleData,
 );
 
