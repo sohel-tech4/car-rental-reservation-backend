@@ -1,5 +1,7 @@
 import config from '../../config';
+import { generateStudentId } from '../../utils/user.utils';
 import { TAcademicSemester } from '../AcademicSemester/AcademicSemester.interface';
+import { AcademicSemester } from '../AcademicSemester/AcademicSemester.model';
 import { TStudent } from '../student/student.interface';
 import { Student } from '../student/student.model';
 import { TUser } from './user.interface';
@@ -13,12 +15,11 @@ const CreateStudent = async (password: string, StudentData: TStudent) => {
   //   set student role
   userData.role = 'student';
 
-  const generateStudentId = (payload: TAcademicSemester) =>{
-    
-  }
+
+  const admissionSemester = await AcademicSemester.findById(StudentData.admissionSemester)
 
   //manually generated id
-  userData.id = '2030100001';
+  userData.id = generateStudentId(admissionSemester)
 
   //   create a user
   const newUser = await User.create(userData);
