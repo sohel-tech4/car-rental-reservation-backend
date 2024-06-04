@@ -2,9 +2,9 @@ import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import { UserRoutes } from './modules/user/user.route';
 import { StudentRoutes } from './modules/student/student.route';
-// import globalErrorHandller from './modules/middleware/globalErrorhandller';
 import notFound from './modules/middleware/notFound';
 import { AcademicSemesterRoutes } from './modules/AcademicSemester/AcademicSemester.route';
+import globalErrorHandler from './modules/middleware/globalErrorhandller';
 const app: Application = express();
 
 // parser
@@ -20,7 +20,7 @@ const getAController = (req: Request, res: Response) => {
   res.send('Hello PH University');
 };
 
-// app.use(globalErrorHandller);
+app.use(globalErrorHandler);
 
 app.use(notFound);
 app.get('/', getAController);

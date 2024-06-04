@@ -1,6 +1,5 @@
 import config from '../../config';
 import { generateStudentId } from '../../utils/user.utils';
-import { TAcademicSemester } from '../AcademicSemester/AcademicSemester.interface';
 import { AcademicSemester } from '../AcademicSemester/AcademicSemester.model';
 import { TStudent } from '../student/student.interface';
 import { Student } from '../student/student.model';
@@ -18,8 +17,11 @@ const CreateStudent = async (password: string, StudentData: TStudent) => {
 
   const admissionSemester = await AcademicSemester.findById(StudentData.admissionSemester)
 
-  //manually generated id
-  userData.id = generateStudentId(admissionSemester)
+  if (!admissionSemester) {
+    throw new Error('Admission semester not found');
+  }
+
+  userData.id = await generateStudentId(admissionSemester)
 
   //   create a user
   const newUser = await User.create(userData);
