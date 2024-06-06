@@ -9,3 +9,16 @@ router.post(
   ValidateRequest(AcademicFacultyValidation.academicFacultyValidationSchema),
   AcademicFacultyController.createAacademicFaculty,
 );
+
+router.get('/:id', AcademicFacultyController.getSingleAcademicFaculty);
+
+router.get('/', AcademicFacultyController.getAllAcademicFaculty);
+
+router.patch(
+  '/:id',
+  ValidateRequest(
+    AcademicFacultyValidation.UpdateAcademicFacultyValidationSchema,
+  ),
+);
+
+export const AcademicFacultyRoutes = router;
