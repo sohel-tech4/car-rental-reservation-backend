@@ -3,8 +3,8 @@ import CatchAsync from '../../utils/catchAsync';
 import { AcademicFacultyService } from './academicFaculty.service';
 import sendResponse from '../../utils/sendResponse';
 
-const createAacademicFaculty = CatchAsync(async (req, res) => {
-  const result = AcademicFacultyService.createAacademicFacultyIntoDB(req.body);
+const createAcademicFaculty = CatchAsync(async (req, res) => {
+  const result = await AcademicFacultyService.createAcademicFacultyIntoDB(req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -53,7 +53,7 @@ const updateAcademicFaculty = CatchAsync(async (req, res) => {
 });
 
 export const AcademicFacultyController = {
-  createAacademicFaculty,
+  createAcademicFaculty,
   getAllAcademicFaculty,
   getSingleAcademicFaculty,
   updateAcademicFaculty,
