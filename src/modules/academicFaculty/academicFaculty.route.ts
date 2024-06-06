@@ -19,6 +19,7 @@ router.patch(
   ValidateRequest(
     AcademicFacultyValidation.UpdateAcademicFacultyValidationSchema,
   ),
+  AcademicFacultyController.updateAcademicFaculty
 );
 
 export const AcademicFacultyRoutes = router;
