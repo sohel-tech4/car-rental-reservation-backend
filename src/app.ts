@@ -7,6 +7,10 @@ import { AcademicSemesterRoutes } from './modules/AcademicSemester/AcademicSemes
 import globalErrorHandler from './modules/middleware/globalErrorhandller';
 import { AcademicFacultyRoutes } from './modules/academicFaculty/academicFaculty.route';
 import { AcademicDepartmentRoutes } from './modules/academicDepartment/academicDepartment.route';
+import { Server } from 'http';
+
+let server: Server;
+
 const app: Application = express();
 
 // parser
@@ -23,6 +27,19 @@ app.use('/api/v1/academic-department', AcademicDepartmentRoutes);
 const getAController = (req: Request, res: Response) => {
   res.send('Hello PH University');
 };
+
+const test = async (req: Request, res: Response) => {};
+app.get('/', test);
+
+process.on('unhandledRejection', () => {
+  console.log('UnhandledRejection is detected, shutting down');
+  if (server) {
+    server.close(() => {
+      process.exit(1);
+    });
+  }
+  process.exit(1);
+});
 
 app.use(globalErrorHandler);
 
