@@ -22,6 +22,4 @@ const handleDuplicateError = (err: any): TGenericErrorResponse => {
   };
 };
 
-Promise.reject();
-
 export default handleDuplicateError;
