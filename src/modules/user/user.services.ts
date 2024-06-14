@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import config from '../../config';
 import { generateStudentId } from '../../utils/user.utils';
 import { AcademicSemester } from '../AcademicSemester/AcademicSemester.model';
@@ -14,23 +15,41 @@ const CreateStudent = async (password: string, StudentData: TStudent) => {
   //   set student role
   userData.role = 'student';
 
-
-  const admissionSemester = await AcademicSemester.findById(StudentData.admissionSemester)
+  const admissionSemester = await AcademicSemester.findById(
+    StudentData.admissionSemester,
+  );
 
   if (!admissionSemester) {
     throw new Error('Admission semester not found');
   }
 
-  userData.id = await generateStudentId(admissionSemester)
+  const session = await mongoose.startSession();
 
-  //   create a user
-  const newUser = await User.create(userData);
+  try {
+    session.startTransaction();
+    userData.id = await generateStudentId(admissionSemester);
 
-  if (Object.keys(newUser).length) {
-    StudentData.id = newUser.id;
-    StudentData.user = newUser._id;
-    const newStudent = await Student.create(StudentData);
+    //   create a user (Transaction-1)
+    const newUser = await User.create([userData], { session });
+
+    if (!newUser.length) {
+      throw new Error('Faild to create user');
+    }
+    StudentData.id = newUser[0].id;
+    StudentData.user = newUser[0]._id;
+
+    //   create a Student (Transaction-2)
+    const newStudent = await Student.create([StudentData], { session });
+    if (!newStudent.length) {
+      throw new Error('Faild to create Student');
+    }
+
+    await session.commitTransaction();
+    await session.endSession();
     return newStudent;
+  } catch (error) {
+    await session.abortTransaction();
+    await session.endSession();
   }
 };
 
