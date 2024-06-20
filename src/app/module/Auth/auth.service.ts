@@ -1,16 +1,15 @@
-import AppError from "../../error/AppError";
-import { TUser } from "../User/user.interface";
-import { User } from "../User/user.model";
-import httpStatus from "http-status";
-import { TSignInUser } from "./auth.interface";
-import jwt from "jsonwebtoken";
-import config from "../../config";
+import AppError from '../../error/AppError';
+import httpStatus from 'http-status';
+import { TSignInUser } from './auth.interface';
+import config from '../../config';
+import { User } from '../user/user.model';
+import { TUser } from '../User/user.interface';
+import jwt from 'jsonwebtoken';
 
 const createSignUp = async (userData: TUser) => {
-  // checking if the user already exists
   const existingUser = await User.findOne({ email: userData.email });
   if (existingUser) {
-    throw new AppError(httpStatus.NOT_FOUND, "User already Exists!!");
+    throw new AppError(httpStatus.NOT_FOUND, 'User already Exists!!');
   }
   const newUser = new User(userData);
   const result = await newUser.save();
@@ -20,23 +19,20 @@ const createSignUp = async (userData: TUser) => {
 const createSignIn = async (payload: TSignInUser) => {
   const user = await User.isUserExitsByEmail(payload.email);
 
-  // checking if the user not found
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, "User not Found");
+    throw new AppError(httpStatus.NOT_FOUND, 'User not Found');
   }
 
-  // chcek password matched
   if (!(await User.isPasswordMatched(payload?.password, user.password))) {
-    throw new AppError(httpStatus.FORBIDDEN, "Password do not matched!!");
+    throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched!!');
   }
-  // create token send to the client
   const jwtPaylod = {
     userEmail: user.email,
     role: user.role,
   };
 
   const accessToken = jwt.sign(jwtPaylod, config.jwt_access_secret as string, {
-    expiresIn: "10d",
+    expiresIn: '20d',
   });
   return {
     user,
