@@ -1,27 +1,27 @@
-import { model, Schema } from 'mongoose';
-import { TCar } from './car.interface';
+import { model, Schema } from "mongoose";
+import { TCar } from "./car.interface";
 
 const carSchema = new Schema<TCar>(
   {
     name: {
       type: String,
-      required: [true, 'Car Name must be required'],
+      required: [true, "Car Name must be required"],
     },
     description: {
       type: String,
-      required: [true, 'Car Description must be required'],
+      required: [true, "Car Description must be required"],
     },
     color: {
       type: String,
-      required: [true, 'Car color is required'],
+      required: [true, "Car color is required"],
     },
     isElectric: {
       type: Boolean,
-      required: [true, 'isElectric is required'],
+      required: [true, "isElectric is required"],
     },
     features: {
       type: [String],
-      required: [true, 'Features is required'],
+      required: [true, "Features is required"],
     },
     isDelete: {
       type: Boolean,
@@ -29,16 +29,16 @@ const carSchema = new Schema<TCar>(
     },
     pricePerHour: {
       type: Number,
-      required: [true, 'PricePerHour is required'],
+      required: [true, "PricePerHour is required"],
     },
     status: {
       type: String,
-      default: 'available',
+      default: "available",
     },
   },
   {
     timestamps: true,
-  },
+  }
 );
 
-export const Car = model<TCar>('Car', carSchema);
+export const Car = model<TCar>("Car", carSchema);
