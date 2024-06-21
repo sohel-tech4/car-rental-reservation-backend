@@ -17,4 +17,4 @@ router.post(
   AuthController.signIn,
 );
 
-export const AuthRouter = router;
+export const authRouter = router;
