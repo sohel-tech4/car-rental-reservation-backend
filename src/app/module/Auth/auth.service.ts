@@ -2,7 +2,7 @@ import AppError from '../../error/AppError';
 import httpStatus from 'http-status';
 import { TSignInUser } from './auth.interface';
 import config from '../../config';
-import { User } from '../user/user.model';
+import { User } from '../User/user.model';
 import { TUser } from '../User/user.interface';
 import jwt from 'jsonwebtoken';
 
