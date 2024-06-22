@@ -8,7 +8,7 @@ A car rental business. To keep track of my cars and manage customer rentals, I h
 
 https://car-rental-reservation-system-backend-five.vercel.app
 
-## Live:
+## Github:
 
 https://github.com/sohel-tech4/car-rental-reservation-backend.git
 
